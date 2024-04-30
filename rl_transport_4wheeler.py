@@ -41,9 +41,11 @@ def run_rl_transport_4wheeler(weights, goal_consumption, fuel_type, traffic_prob
     num_episodes = 100
 
     if fuel_type == "Petrol":
-        FOURWHEELER_CONSUMPTION = (160381 / 10000000) * 1000
+        # FOURWHEELER_CONSUMPTION = (160381 / 10000000) * 1000
+        FOURWHEELER_CONSUMPTION = (6567.81 / 100000) * 1000
     elif fuel_type == "Diesel":
-        FOURWHEELER_CONSUMPTION = (1371670 / 100000000) * 1000
+        # FOURWHEELER_CONSUMPTION = (1371670 / 100000000) * 1000
+        FOURWHEELER_CONSUMPTION = (6335.67 / 100000) * 1000
     else:
         raise ValueError("WRONG FUEL TYPE INPUT")
 

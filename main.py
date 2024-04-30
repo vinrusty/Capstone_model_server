@@ -8,9 +8,11 @@ from rl_electricity_washing_machine import run_rl_electricity_washing_machine
 from rl_electricity_air_conditioner import ac_algorithm
 from rl_electricity_ceiling_fan import fan_algorithm
 from rl_electricity_tubelights import tubelights_algorithm
+from rl_electricity_tubelights_final import run_tubelight_optimization
 from rl_transport_2wheeler import rl_transport_2wheeler
 from rl_transport_4wheeler import run_rl_transport_4wheeler
 from rl_electricity_washing_machine_2 import optimize_washing_machine 
+from rl_electricity_ceiling_fan_final import run_fan_optimization
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -96,13 +98,15 @@ async def rl_appliance_predict(appliances: str, input_data: RLInputDataElectrica
         d = input_data.d/100
         goal = input_data.goal_consumption
         if appliances == "Tubelight":
-            return tubelights_algorithm(a,b,c,d,goal)
+            # return tubelights_algorithm(a,b,c,d,goal)
+            return run_tubelight_optimization(a,b,c,d,goal)
         elif appliances == "Air Conditioner":
             return ac_algorithm(a,b,c,d,goal)
         elif appliances == "Ceiling Fan":
-            return fan_algorithm(a,b,c,d,goal)
+            # return fan_algorithm(a,b,c,d,goal)
+            return run_fan_optimization(a,b,c,d,goal_consumption=goal)
         elif appliances == "Washing Machine":
-            return optimize_washing_machine([a, b, c, d], goal)
+            return optimize_washing_machine([a, b, c, d], goal/10)
         
     except Exception as e:
         print(e)
@@ -120,11 +124,14 @@ async def rl_transport_predict(vehicle: str, input_data: RLInputDataTransport):
         goal = input_data.goal_consumption
         fuel = input_data.fuel_type
 
+        print(input_data)
+
         if vehicle == "2 Wheeler":
             return rl_transport_2wheeler([a,b,c,d],goal)
             pass
         if vehicle == "4 Wheeler":
             return run_rl_transport_4wheeler([a,b,c,d],goal, fuel, 0.2)
     except Exception as e:
+        
         raise HTTPException(status_code=500, detail=str(e))
 

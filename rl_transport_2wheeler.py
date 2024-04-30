@@ -4,7 +4,8 @@ import random
 def rl_transport_2wheeler(weights, goal_consumption):
     a, b, c, d = weights
     TRAFFIC_PROBABILITY = 0.2
-    TWOWHEELER_CONSUMPTION = 445223160/100000000
+    # TWOWHEELER_CONSUMPTION = 445223160/100000000
+    TWOWHEELER_CONSUMPTION = (1424.96/100000)*1000
 
     states = [("Morning", "1", "High"),
               ("Morning", "3", "Moderate"),
