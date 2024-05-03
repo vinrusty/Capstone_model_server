@@ -25,9 +25,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load the trained model and scaler
-model = joblib.load('linear_regression_model.joblib')
-
 # Define request body model
 class InputDataEA(BaseModel):
     hours: float
@@ -56,17 +53,17 @@ async def predict(appliances:str, input_data: InputDataEA):
     try:
         file = ''
         if appliances == "Tubelight":
-            file = 'linear_regression_model.joblib'
+            file = 'ML_models/linear_regression_model.joblib'
         elif appliances == "Air Conditioner":
-            file = 'AC_linear_regression_model.joblib'
+            file = 'ML_models/AC_linear_regression_model.joblib'
         elif appliances == "Ceiling Fan":
-            file = 'CeilingFan_random_forest_regression_model.joblib'
+            file = 'ML_models/CeilingFan_random_forest_regression_model.joblib'
         elif appliances == "Washing Machine":
-            file = 'WashingMachine_grad_boost_regression_model.joblib'
+            file = 'ML_models/WashingMachine_grad_boost_regression_model.joblib'
         elif appliances == "2 Wheeler":
-            file = '2wheeler.joblib'
+            file = 'ML_models/2wheeler.joblib'
         elif appliances == "4 Wheeler":
-            file = '4wheeler2.joblib'
+            file = 'ML_models/4wheeler2.joblib'
 
         # Get input data from the frontend
         model = joblib.load(file)
