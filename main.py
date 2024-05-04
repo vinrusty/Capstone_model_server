@@ -48,6 +48,10 @@ class RLInputDataTransport(BaseModel):
     goal_consumption: float
     fuel_type: str
 
+@app.get("/")
+def sayHello():
+    return "Hello from the model server"
+
 @app.post('/predict/{appliances}')
 async def predict(appliances:str, input_data: InputDataEA):
     try:
