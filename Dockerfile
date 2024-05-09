@@ -4,17 +4,23 @@ FROM python:3.9-slim
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the requirements file to the working directory
-COPY requirements.txt .
+# Copy the ML_models directory to the working directory
+COPY ML_models /app/ML_models
 
-# Install the Python dependencies
+# Copy the RL_models directory to the working directory
+COPY RL_models /app/RL_models
+
+# Copy the main.py file to the working directory
+COPY main.py /app
+
+# Set the PYTHONPATH environment variable to include RL_models directory
+ENV PYTHONPATH "${PYTHONPATH}:/app/ML_models:/app/RL_models"
+
+# Copy the requirements file to the working directory
+COPY requirements.txt /app
+
+# Install Python dependencies
 RUN pip install -r requirements.txt
 
-# Copy the application code to the working directory
-COPY . .
-
-# Expose the port on which the application will run
-EXPOSE 8000
-
-# Run the FastAPI application using uvicorn server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Command to run the application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
